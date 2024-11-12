@@ -5,7 +5,7 @@ from openai import OpenAI
 import anthropic
 from prompt_toolkit.shortcuts import input_dialog
 import google.generativeai as genai
-
+import pkg_resources
 
 class Config:
     """
@@ -26,7 +26,8 @@ class Config:
         return cls._instance
 
     def __init__(self):
-        load_dotenv()
+        dotenv_path = pkg_resources.resource_filename("operate", ".env")
+        load_dotenv(dotenv_path=dotenv_path)
         self.verbose = False
         self.openai_api_key = (
             None  # instance variables are backups in case saving to a `.env` fails
